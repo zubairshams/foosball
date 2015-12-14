@@ -15,6 +15,7 @@ group :development, :test do
   gem 'byebug'
   gem 'rspec-rails'
   gem 'factory_girl_rails'
+  gem 'database_cleaner'
   gem 'shoulda'
 end
 
