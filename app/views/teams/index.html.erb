@@ -1,0 +1,33 @@
+<div class="page-header">
+  <%= link_to 'New', new_team_path, class: 'btn btn-primary pull-right' %>
+  <h1>Listing Teams</h1>
+</div>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>First User</th>
+      <th>Second User</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @teams.each do |team| %>
+      <tr>
+        <td><%= team.name %></td>
+        <td><%= team.users[0].full_name %></td>
+        <td><%= team.users[1].full_name if team.users[1] %></td>
+        <td>
+          <%= link_to 'Show', team_path(team), title: 'Show', class: 'btn-link' %>
+          <%= link_to 'Edit', edit_team_path(team), title: 'Edit', class: 'btn btn-link' %>
+          <%= link_to 'Destroy', team_path(team),
+                      method: :delete,
+                      data: { confirm: 'Are you sure?' },
+                      title: 'Delete',
+                      class: 'btn btn-link' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

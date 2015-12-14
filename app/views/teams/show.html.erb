@@ -1,0 +1,19 @@
+<p>
+  <strong>Name</strong>
+  <%= @team.name %>
+</p>
+
+<p>
+  <strong>First User</strong>
+  <%= @team.users[0].full_name %>
+</p>
+
+<% if @team.users[1] %>
+  <p>
+    <strong>Second User</strong>
+    <%= @team.users[1].full_name %>
+  </p>
+<% end %>
+
+<%= link_to 'Edit', edit_team_path(@team) %> |
+<%= link_to 'Back', teams_path %>
