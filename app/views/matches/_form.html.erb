@@ -1,0 +1,52 @@
+<% team_options = Team.all.map {|t| [t.name, t.id]} %>
+
+<div class="border-form-div">
+  <%= form_for(@match) do |f| %>
+    <% if @match.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@match.errors.count, "error") %> prohibited this match from being saved:</h2>
+
+        <ul>
+        <% @match.errors.each do |attr, message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="form-group">
+      <%= f.label :team_one, 'Team one' %>
+      <%= f.select :team_one_id, team_options, {}, {class: 'form-control'} %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :team_two, 'Team two' %>
+      <%= f.select :team_two_id, team_options, {}, {class: 'form-control'} %>
+    </div>
+
+    <hr/>
+
+    <%= f.nested_fields_for :games do |ff| %>
+      <div class="form-group">
+        <%= ff.label :team_one_score, 'Team one score' %>
+        <%= ff.select :team_one_score, (0..10), {}, {class: "form-control"} %>
+      </div>
+
+      <div class="form-group">
+        <%= ff.label :team_two_score, 'Team two score' %>
+        <%= ff.select :team_two_score, (0..10), {}, {class: "form-control"} %>
+      </div>
+
+      <%= ff.remove_nested_fields_link 'Remove', data: { confirm: 'Are you sure?' }, class: 'btn btn-danger pull-right' %>
+    
+      <div class="clear"></div>
+      <hr/>
+    <% end %>
+
+    <%= f.add_nested_fields_link :games, 'Add Game', class: 'btn btn-info pull-right' %>
+  
+    <div class="clear"></div>
+  
+    <%= f.submit "Submit", :class=>'btn btn-primary' %>
+  <% end %>
+</div>

@@ -1,0 +1,38 @@
+<div class="page-header">
+  <%= link_to 'New', new_match_path, class: 'btn btn-primary pull-right' %>
+  <h1>Listing Matches</h1>
+</div>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Teams</th>
+      <th>Score</th>
+      <th>Winner</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @matches.each do |match| %>
+      <tr>
+        <td><%= "#{match.team_one.name} vs #{match.team_two.name}" %></td>
+        <td>
+          <% match.games.each do |game| %>
+           <%= "#{game.team_one_score} : #{game.team_two_score}"  %>
+           <br/>
+          <% end %>
+        </td>
+        <td><%= match.winning_team.name if match.winning_team %></td>
+        <td>
+          <%= link_to 'Show', match_path(match), title: 'Show', class: 'btn-link' %>
+          <%= link_to 'Edit', edit_match_path(match), title: 'Edit', class: 'btn btn-link' %>
+          <%= link_to 'Destroy', match_path(match),
+                      method: :delete,
+                      data: { confirm: 'Are you sure?' },
+                      title: 'Delete',
+                      class: 'btn btn-link' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

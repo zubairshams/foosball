@@ -7,6 +7,12 @@ class Game < ActiveRecord::Base
   validates :team_one, :team_two, :team_one_score, :team_two_score, presence: true
   validate :scores
 
+  before_save :set_winner
+
+  def set_winner
+    self.winning_team_id = team_one_score > team_two_score ? team_one_id : team_two_id
+  end
+
   private
   
   def scores

@@ -22,4 +22,23 @@ RSpec.describe Match, type: :model do
       expect(match.errors).to be_empty
     end
   end
+
+  describe '#set_winner' do
+    let(:team_one) { create(:team) }
+    let(:team_two) { create(:team) }
+    let(:game_one) { create(:game, team_one: team_one, team_two: team_two) }
+    let(:game_two) { create(:game, team_one: team_one, team_two: team_two) }
+
+    it 'should have a winner team' do
+      match = create(:match, team_one: team_one, team_two: team_two, games: [game_one, game_two])
+      match.set_winner
+      expect(match.winning_team).to eq team_one
+    end
+    
+    it 'should not set any winner team' do
+      match = create(:match, team_one: team_one, team_two: team_two, games: [game_one])
+      match.set_winner
+      expect(match.winning_team).to be_nil
+    end
+  end
 end

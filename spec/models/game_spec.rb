@@ -29,4 +29,19 @@ RSpec.describe Game, type: :model do
       expect(game.errors).to be_empty
     end
   end
+
+  describe '#set_winner' do
+    it 'should have a winner team' do
+      match = build(:match)
+      game = build(:game, match: match)
+      game.save
+      expect(game.winning_team).to eq game.team_one
+    end
+
+    it 'should not set any winner team' do
+      game = build(:game, team_one_score: 5, team_two_score: 3)
+      game.save
+      expect(game.winning_team).to be_nil
+    end
+  end
 end

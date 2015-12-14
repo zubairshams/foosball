@@ -7,6 +7,15 @@ class Match < ActiveRecord::Base
   validates :team_one, :team_two, presence: true
   validate :teams_must_be_uniq
   validates :games, length: { minimum: 1, maximum: 3, message: 'Games must be at least 1 and at most 3.'}
+  
+  accepts_nested_attributes_for :games, allow_destroy: true
+  
+  before_save :set_winner
+
+  def set_winner
+    winner_ids = games.reject(&:marked_for_destruction?).map(&:set_winner)
+    self.winning_team_id = winner_ids.select { |i| winner_ids.count(i) > 1 }.first
+  end
 
   private
   
