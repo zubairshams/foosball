@@ -1,0 +1,67 @@
+<div class="row">
+  <div class="col-xs-6">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3>Player Stats</h3>
+      </div>
+
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th class="text-center">#</th>
+            <th class="text-center">Player</th>
+            <th class="text-center">Games</th>
+            <th class="text-center">Wins</th>
+            <th class="text-center">Losses</th>
+            <th class="text-center">Win %</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @user_stats.each.with_index(1) do |user_stat, i| %>
+            <tr>
+              <td class="text-center"><%= i %></td>
+              <td class="text-center"><%= user_stat.name %></td>
+              <td class="text-center"><span class="badge progress-bar-info"><%= user_stat.total_games %></span></td>
+              <td class="text-center"><span class="badge progress-bar-success"><%= user_stat.total_wins %></span></td>
+              <td class="text-center"><span class="badge progress-bar-danger"><%= user_stat.total_games - user_stat.total_wins %></span></td>
+              <td class="text-center"><span class="badge progress-bar-danger"><%= user_stat.win_percentage %></span></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="col-xs-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3>Team Rankings</h3>
+        </div>
+
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th class="text-center">#</th>
+              <th class="text-center">Team</th>
+              <th class="text-center">Matches</th>
+              <th class="text-center">Wins</th>
+              <th class="text-center">Losses</th>
+              <th class="text-center">Win %</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @team_stats.each.with_index(1) do |team_stat, i| %>
+              <tr>
+                <td class="text-center"><%= i %></td>
+                <td class="text-center"><%= team_stat.name %></td>
+                <td class="text-center"><span class="badge progress-bar-info"><%= team_stat.total_matches %></span></td>
+                <td class="text-center"><span class="badge progress-bar-success"><%= team_stat.total_wins %></span></td>
+                <td class="text-center"><span class="badge progress-bar-danger"><%= team_stat.total_matches - team_stat.total_wins %></span></td>
+                <td class="text-center"><span class="badge progress-bar-danger"><%= team_stat.win_percentage %></span></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+  </div>
+</div>
