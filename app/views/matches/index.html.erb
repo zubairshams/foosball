@@ -6,7 +6,8 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th>Teams</th>
+      <th>Team One</th>
+      <th>Team Two</th>
       <th>Score</th>
       <th>Winner</th>
       <th>Actions</th>
@@ -15,7 +16,8 @@
   <tbody>
     <% @matches.each do |match| %>
       <tr>
-        <td><%= "#{match.team_one.name} vs #{match.team_two.name}" %></td>
+        <td><%= match.team_one.nil? ? 'Deleted' : match.team_one.name %></td>
+        <td><%= match.team_two.nil? ? 'Deleted' : match.team_two.name %></td>
         <td>
           <% match.games.each do |game| %>
            <%= "#{game.team_one_score} : #{game.team_two_score}"  %>
@@ -24,7 +26,7 @@
         </td>
         <td><%= match.winning_team.name if match.winning_team %></td>
         <td>
-          <%= link_to 'Show', match_path(match), title: 'Show', class: 'btn-link' %>
+          <%= link_to 'Games History', match_path(match), title: 'Show', class: 'btn-link' %>
           <%= link_to 'Edit', edit_match_path(match), title: 'Edit', class: 'btn btn-link' %>
           <%= link_to 'Destroy', match_path(match),
                       method: :delete,

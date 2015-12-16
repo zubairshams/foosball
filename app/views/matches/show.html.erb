@@ -1,24 +1,54 @@
-<table class="table table-striped">
-  <tbody>
-    <tr>
-      <td><strong>Match</strong></td>
-      <td><%= "#{@match.team_one.name} vs #{@match.team_two.name}" %></td>
-    </tr>
-    <tr>
-      <td><strong>Winner</strong></td>
-      <td><%= @match.winning_team.name if @match.winning_team %></td>
-    </tr>
-    <tr>
-      <td><strong>Score</strong></td>
-      <td>
-        <% @match.games.each do |game| %>
-          <%= "#{game.team_one_score} : #{game.team_two_score}"  %>
-          <br/>
-        <% end %>
-      </td>
-    </tr>
-  </tbody>
-</table>
+<% team_one = @match.team_one.nil? ? 'Deleted' : @match.team_one.name %>
+<% team_two = @match.team_two.nil? ? 'Deleted' : @match.team_two.name %>
+<p>
+  <strong>Team One</strong>
+  <%= team_one %>
+</p>
+<p>
+  <strong>Team Two</strong>
+  <%= team_two %>
+</p>
+<p>
+  <strong>Winner</strong>
+  <%= @match.winning_team.name if @match.winning_team %>
+</p>
+
+<br/>
+
+<div class="row">
+  <div class="col-xs-12">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3>Games History</h3>
+      </div>
+
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th class="text-center">#</th>
+            <th class="text-center">Team One</th>
+            <th class="text-center">Team One Score</th>
+            <th class="text-center">Team Two</th>
+            <th class="text-center">Team Two Score</th>
+            <th class="text-center">Winner</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @match.games.each_with_index do |game, i| %>
+            <tr>
+              <td class="text-center"><%= i + 1 %></td>
+              <td class="text-center"><%= team_one %></td>
+              <td class="text-center"><%= game.team_one_score %></td>
+              <td class="text-center"><%= team_two %></td>
+              <td class="text-center"><%= game.team_two_score %></td>
+              <td class="text-center"><%= game.winning_team.name if game.winning_team %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
 
 <%= link_to 'Edit', edit_match_path(@match) %> |
 <%= link_to 'Back', matches_path %>

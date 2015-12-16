@@ -16,7 +16,7 @@
     <% @teams.each do |team| %>
       <tr>
         <td><%= team.name %></td>
-        <td><%= team.users[0].full_name %></td>
+        <td><%= team.users[0].full_name if team.users[0] %></td>
         <td><%= team.users[1].full_name if team.users[1] %></td>
         <td>
           <%= link_to 'Show', team_path(team), title: 'Show', class: 'btn-link' %>
